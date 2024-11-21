@@ -165,7 +165,6 @@ function showAlertDialog(message) {
 
 // Función para lanzar confeti
 function launchConfetti() {
-  if (isMobile()) return; // No lanzar confeti en móviles
   confetti({
     particleCount: 150,
     spread: 70,
