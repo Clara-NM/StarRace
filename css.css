@@ -6,8 +6,21 @@ body {
   background-size: cover;
   color: white;
   padding: 5%;
-  overflow: hidden; /* Evitar scroll por la animación */
+  overflow: hidden;
+  
 }
+
+#star-container {
+  position: fixed; /* Fija el contenedor para que ocupe toda la pantalla */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Asegura que cubra todo el ancho de la ventana */
+  height: 100vh; /* Asegura que cubra todo el alto de la ventana */
+  overflow: hidden; /* Oculta solo las estrellas fuera del área visible */
+  pointer-events: none; /* Permite interactuar con otros elementos */
+  z-index: 100; /* Asegura que esté encima del contenido */
+}
+
 
 .child {
   margin: 20px;
@@ -17,17 +30,17 @@ body {
   display: inline-block;
   width: 200px;
   background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
-  color: black; /* Texto en negro */
-  text-align: center; /* Centrar texto */
+  color: black;
+  text-align: center;
 }
 
 .stars {
-  font-size: 1.5rem; /* Tamaño más pequeño de las estrellas */
+  font-size: 1.5rem;
   margin-bottom: 10px;
   color: gold;
-  display: flex; /* Usa Flexbox para manejar el espacio */
-  justify-content: center; /* Centra las estrellas horizontalmente */
-  gap: 15px; /* Mayor espacio entre estrellas */
+  display: flex;
+  justify-content: center;
+  gap: 15px;
 }
 
 .name {
@@ -67,98 +80,10 @@ button {
   background-color: darkred;
 }
 
-.add-child-button {
-  position: absolute; /* Posiciona el botón en relación con la ventana */
-  top: 20px; /* Distancia desde la parte superior */
-  left: 20px; /* Distancia desde la parte izquierda */
-  background-color: #2665a8; /* Color azul del botón */
-  color: white; /* Texto blanco */
-  text-decoration: none; /* Quita el subrayado */
-  padding: 10px 15px; /* Tamaño del botón */
-  border-radius: 5px; /* Bordes redondeados */
-  font-size: 1rem; /* Tamaño del texto */
-  font-weight: bold; /* Texto en negrita */
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Sombra para resaltar el botón */
-  cursor: pointer;
-}
-
 .add-child-button:hover {
-  background-color: #0056b3; /* Color más oscuro al pasar el ratón */
+  background-color: #0056b3;
 }
 
-.delete-button {
-  background-color: transparent;
-  color: white; /* Texto blanco */
-  border: none; /* Sin borde */
-  border-radius: 5px; /* Bordes redondeados */
-  padding: 10px; /* Espaciado interno */
-  cursor: pointer; /* Cambia el cursor al pasar por el botón */
-  font-size: 1rem; /* Tamaño del texto */
-  margin-top: 10px; /* Espaciado superior */
-  text-transform: uppercase; /* Hace el texto en mayúsculas */
-  font-weight: bold; /* Texto en negrita */
-}
-
-.delete-button:hover {
-  background-color: #3f0c11; /* Rojo más oscuro al pasar el cursor */
-}
-
-.dialog-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.dialog {
-  background-color: #f7f9fc; /* Azul claro */
-  border: 2px solid #007bff; /* Borde azul */
-  color: #004085; /* Texto azul oscuro */
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  max-width: 300px;
-  width: 90%;
-}
-
-.dialog.alert {
-  background-color: #d4edda; /* Verde claro */
-  border-color: #28a745; /* Borde verde */
-  color: #155724; /* Texto verde oscuro */
-}
-
-.dialog p {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-}
-
-.dialog button {
-  margin: 10px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  color: white;
-}
-
-/* Botón de cierre */
-.close-button {
-  background-color: #28a745; /* Verde */
-}
-
-.close-button:hover {
-  background-color: #218838;
-}
-
-/* Estilo para las estrellas fugaces */
 .shooting-star {
   position: absolute;
   width: 3px;
@@ -172,5 +97,12 @@ button {
   to {
     transform: translate(100vw, 100vh) rotate(45deg);
     opacity: 0;
+  }
+}
+
+
+@media screen and (max-width: 768px) and (pointer: coarse) {
+  body {
+    overflow-x: auto; /* Permite scroll horizontal en dispositivos táctiles */
   }
 }

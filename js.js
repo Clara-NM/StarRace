@@ -1,5 +1,7 @@
-// Obtener los nombres de los niños desde localStorage o establecer los nombres predeterminados
-let childrenNames = JSON.parse(localStorage.getItem("children")) || ["Ana", "Luis", "María", "Carlos"];
+// Detectar si el dispositivo es móvil
+function isMobile() {
+  return window.innerWidth <= 768; // Detecta dispositivos con ancho menor o igual a 768px
+}
 
 // Función para inicializar los niños
 function initializeChildren() {
@@ -137,8 +139,33 @@ function showConfirmationDialog(message, onConfirm) {
   document.body.appendChild(dialogContainer);
 }
 
+// Función para mostrar un cuadro de alerta
+function showAlertDialog(message) {
+  const dialogContainer = document.createElement("div");
+  dialogContainer.className = "dialog-container";
+
+  const dialog = document.createElement("div");
+  dialog.className = "dialog alert";
+
+  const messageElement = document.createElement("p");
+  messageElement.textContent = message;
+
+  const closeButton = document.createElement("button");
+  closeButton.textContent = "Cerrar";
+  closeButton.className = "close-button";
+  closeButton.addEventListener("click", () => {
+    document.body.removeChild(dialogContainer); // Cierra el cuadro de diálogo
+  });
+
+  dialog.appendChild(messageElement);
+  dialog.appendChild(closeButton);
+  dialogContainer.appendChild(dialog);
+  document.body.appendChild(dialogContainer);
+}
+
 // Función para lanzar confeti
 function launchConfetti() {
+  if (isMobile()) return; // No lanzar confeti en móviles
   confetti({
     particleCount: 150,
     spread: 70,
@@ -146,5 +173,36 @@ function launchConfetti() {
   });
 }
 
+// Función para generar estrellas fugaces
+function createShootingStar() {
+  if (isMobile()) return; // No generar estrellas en dispositivos móviles
+
+  const starContainer = document.getElementById("star-container");
+  const star = document.createElement("div");
+  star.className = "shooting-star";
+
+  // Posición inicial aleatoria
+  const startX = Math.random() * window.innerWidth; // Posición horizontal aleatoria
+  const startY = Math.random() * window.innerHeight / 2; // Posición vertical limitada a la mitad superior
+
+  // Establecer la posición inicial
+  star.style.left = `${startX}px`;
+  star.style.top = `${startY}px`;
+
+  // Agregar la estrella al contenedor
+  starContainer.appendChild(star);
+
+  // Eliminar la estrella después de la animación
+  setTimeout(() => {
+    star.remove();
+  }, 3000); // Coincide con la duración de la animación
+}
+
+// Crear estrellas fugaces periódicamente si no es móvil
+if (!isMobile()) {
+  setInterval(createShootingStar, 500);
+}
+
 // Inicializar la lista de niños al cargar la página
+let childrenNames = JSON.parse(localStorage.getItem("children")) || ["Ana", "Luis", "María", "Carlos"];
 initializeChildren();
