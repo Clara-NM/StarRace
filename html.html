@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css.css" />
+    <title>Estrellas para los niños</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 20px;
+        background: url("fondo5.jpg") no-repeat center center fixed;
+        background-size: cover;
+        color: rgb(255, 255, 255);
+        padding: 5%;
+        overflow: hidden; /* Evitar scroll por la animación */
+      }
+
+      .child {
+        margin: 20px;
+        padding: 10px;
+        border: 2px solid white;
+        border-radius: 10px;
+        display: inline-block;
+        width: 200px;
+      }
+
+      .stars {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: gold;
+      }
+
+      .name {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      button {
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 1rem;
+        color: white;
+      }
+
+      .add-star {
+        background-color: green;
+      }
+
+      .remove-star {
+        background-color: red;
+      }
+
+      /* Estilos para las estrellas fugaces */
+      .shooting-star {
+        position: absolute;
+        width: 3px;
+        height: 100px;
+        background: linear-gradient(white, rgba(255, 255, 255, 0));
+        transform-origin: top left;
+        animation: shooting 3s linear forwards;
+      }
+
+      @keyframes shooting {
+        to {
+          transform: translate(100vw, 100vh) rotate(45deg);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>The Race of the Stars</h1>
+    <a href="añadir.html" class="add-child-button">Añadir Niños</a>
+    <div id="children"></div>
+    <audio id="applause" src="applause.mp3"></audio>
+
+    <!-- Contenedor para las estrellas fugaces -->
+    <div id="star-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script src="js.js"></script>
+    <script>
+      // Generar estrellas fugaces aleatorias
+      function createShootingStar() {
+        const starContainer = document.getElementById("star-container");
+        const star = document.createElement("div");
+        star.className = "shooting-star";
+
+        // Posición inicial aleatoria
+        const startX = Math.random() * window.innerWidth; // Anchura de la ventana
+        const startY = Math.random() * window.innerHeight; // Altura de la ventana
+
+        // Establecer posición inicial
+        star.style.left = `${startX}px`;
+        star.style.top = `${startY}px`;
+
+        // Rotación aleatoria para que se muevan en diferentes ángulos
+        const angle = Math.random() * 45 + 45; // Entre 45° y 90°
+        star.style.transform = `rotate(${angle}deg)`;
+
+        // Agregar la estrella al contenedor
+        starContainer.appendChild(star);
+
+        // Eliminar la estrella después de la animación
+        setTimeout(() => {
+          star.remove();
+        }, 3000);
+      }
+
+      // Crear estrellas fugaces periódicamente
+      setInterval(createShootingStar, 500);
+    </script>
+  </body>
+</html>
