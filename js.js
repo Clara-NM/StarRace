@@ -1,7 +1,7 @@
 // Obtener los nombres de los niños desde localStorage o establecer los nombres predeterminados
 let childrenNames = JSON.parse(localStorage.getItem("children")) || ["Ana", "Luis", "María", "Carlos"];
 
-// Función para crear la lista de niños con estrellas iniciales y botones para añadir, quitar estrellas y eliminar
+// Función para inicializar los niños
 function initializeChildren() {
   const childrenContainer = document.getElementById("children");
   childrenContainer.innerHTML = ""; // Limpia el contenedor antes de agregar niños
@@ -76,10 +76,11 @@ function updateStars(childDiv) {
   const starsCount = childDiv.dataset.stars;
   starsElement.innerHTML = "⭐️".repeat(starsCount);
 
-  // Si el niño alcanza 5 estrellas, se activa una animación de confeti
+  // Si el niño alcanza 5 estrellas, se activa confeti y sonido de aplausos
   if (starsCount == 5) {
     const applause = document.getElementById("applause");
-    applause.play(); // Reproducir sonido de aplausos
+    applause.currentTime = 0; // Reiniciar el sonido de aplausos
+    applause.play(); // Reproducir sonido
     launchConfetti(); // Lanza confeti
   }
 }
@@ -132,30 +133,6 @@ function showConfirmationDialog(message, onConfirm) {
   dialog.appendChild(messageElement);
   dialog.appendChild(confirmButton);
   dialog.appendChild(cancelButton);
-  dialogContainer.appendChild(dialog);
-  document.body.appendChild(dialogContainer);
-}
-
-// Función para mostrar un cuadro de alerta bonito
-function showAlertDialog(message) {
-  const dialogContainer = document.createElement("div");
-  dialogContainer.className = "dialog-container";
-
-  const dialog = document.createElement("div");
-  dialog.className = "dialog alert";
-
-  const messageElement = document.createElement("p");
-  messageElement.textContent = message;
-
-  const closeButton = document.createElement("button");
-  closeButton.textContent = "Cerrar";
-  closeButton.className = "close-button";
-  closeButton.addEventListener("click", () => {
-    document.body.removeChild(dialogContainer); // Cierra el cuadro de diálogo
-  });
-
-  dialog.appendChild(messageElement);
-  dialog.appendChild(closeButton);
   dialogContainer.appendChild(dialog);
   document.body.appendChild(dialogContainer);
 }
